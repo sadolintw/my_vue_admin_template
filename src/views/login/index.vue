@@ -88,13 +88,17 @@ export default {
     },
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
+        console.log('hihi1')
         if (valid) {
+          console.log('hihi2')
           this.loading = true
           this.$store.dispatch('Login', this.loginForm).then(() => {
             this.loading = false
+            console.log('hihi3')
             this.$router.push({ path: this.redirect || '/' })
-          }).catch(() => {
+          }).catch((error) => {
             this.loading = false
+            console.log('hihi4' + error)
           })
         } else {
           console.log('error submit!!')

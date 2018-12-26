@@ -7,6 +7,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import request from '@/utils/request'
 
 export default {
   name: 'Dashboard',
@@ -15,6 +16,16 @@ export default {
       'name',
       'roles'
     ])
+  },
+  mounted() {
+    console.log(request)
+    console.log('dashboard mounted')
+    console.log(request(
+      {
+        url: 'api/test',
+        method: 'get'
+      })
+    )
   }
 }
 </script>

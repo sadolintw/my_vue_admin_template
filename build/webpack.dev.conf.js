@@ -40,7 +40,31 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       ? { warnings: false, errors: true }
       : false,
     publicPath: config.dev.assetsPublicPath,
-    proxy: config.dev.proxyTable,
+    /* cors */
+    headers: { 
+      "Access-Control-Allow-Origin": "*" 
+    },
+    /* proxy: config.dev.proxyTable, */
+    proxy: {
+      '/api/**': {
+        target: 'http://localhost:8080/',
+        headers: {
+          'X-Forwarded-For': '1.2.3.4'
+        },
+        pathRewrite: {
+          '^/api' : ''
+        }
+      },
+      '/user/**': {
+        target: 'http://localhost:8080/user',
+        headers: {
+          'X-Forwarded-For': '1.2.3.4'
+        },
+        pathRewrite: {
+          '^/user' : ''
+        }
+      },
+    },
     quiet: true, // necessary for FriendlyErrorsPlugin
     watchOptions: {
       poll: config.dev.poll
